@@ -14,8 +14,9 @@ const initSentry = () => {
         debug: true,
         ignoreErrors: ['SubmissionError'],
     })
-
-    Sentry.Native.setRelease(Constants.manifest.revisionId)
+    if (!__DEV__) {
+        Sentry.Native.setRelease(Constants.manifest.revisionId)
+    }
 }
 
 /**

@@ -7,16 +7,16 @@ import {
     View,
     Text,
     StatusBar,
-    Settings,
+    // Settings,
     Platform,
-    AppState,
-    Alert,
+    // AppState,
+    // Alert,
 } from 'react-native'
 import DropdownAlert from 'react-native-dropdownalert-jia'
 import { enableScreens } from 'react-native-screens'
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
+// import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import 'react-native-reanimated'
-import DeepLinking from 'react-native-deep-linking'
+// import DeepLinking from 'react-native-deep-linking'
 import ReactMoE from 'react-native-moengage'
 import messaging from '@react-native-firebase/messaging'
 // import ReactMoE from 'react-native-moengage'
@@ -40,23 +40,23 @@ import MessageStorageService from './src/services/chat/MessageStorageService'
 import {
     initSegment,
     EVENT as E,
-    track,
+    // track,
     trackWithProperties,
 } from './src/monitoring/segment'
 
 import { initSentry } from './src/monitoring/sentry'
-import * as Linking from 'expo-linking'
-import MultipleImagePicker from './src/Main/Menu/MutlipleImagePicker'
-import EditModal from './src/Main/Accountability/EditModal'
-import * as Notifications from 'expo-notifications'
+// // import * as Linking from 'expo-linking'
+// import MultipleImagePicker from './src/Main/Menu/MutlipleImagePicker'
+// import EditModal from './src/Main/Accountability/EditModal'
+// import * as Notifications from 'expo-notifications'
 
 import { setJSExceptionHandler } from 'react-native-exception-handler' // If an error occurs or app crashes these functions are called we used them to send sengments
 
 // UI theme provider
 import ThemeProvider from './theme/ThemeProvider'
-import CustomDropdown from './CustomDropDown'
-import { color } from './src/styles/basic'
-import { Actions } from 'react-native-router-flux'
+// import CustomDropdown from './CustomDropDown'
+// import { color } from './src/styles/basic'
+// import { Actions } from 'react-native-router-flux'
 
 // import CustomDropDown from './src/Main/Onboarding/Common/CustomDropdown'
 // Disable font scaling at the start of the App
@@ -73,7 +73,9 @@ if (!__DEV__) {
 initSegment()
 
 // Initialize Sentry
-initSentry()
+if (!__DEV__) {
+    initSentry()
+}
 
 setJSExceptionHandler((error, isFatal) => {
     console.log(`${DEBUG_KEY} Error while doing the action`, error)
@@ -86,19 +88,19 @@ setJSExceptionHandler((error, isFatal) => {
 //     console.log('setNativeExceptionHandler')
 // })
 
-const prefix = Linking.makeUrl('/')
-let scheme = 'goalmogulapp'
+// const prefix = Linking.makeUrl('/')
+// let scheme = 'goalmogulapp'
 
-const theme = {
-    ...DefaultTheme,
-    dark: true,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: color.GM_BLUE,
-        accent: 'red',
-        text: 'rgba(0, 141, 200, 1)',
-    },
-}
+// const theme = {
+//     ...DefaultTheme,
+//     dark: true,
+//     colors: {
+//         ...DefaultTheme.colors,
+//         primary: color.GM_BLUE,
+//         accent: 'red',
+//         text: 'rgba(0, 141, 200, 1)',
+//     },
+// }
 
 export default class App extends React.Component {
     constructor(props) {

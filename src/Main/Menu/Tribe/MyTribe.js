@@ -640,7 +640,7 @@ class MyTribe extends React.PureComponent {
         )
     }
 
-    renderIOSAddPostButtons(item) {
+    renderIOSAddPostButton(item) {
         const { userTribeStatus } = this.props
         if (userTribeStatus === 'Admin' || userTribeStatus === 'Member') {
             return (
