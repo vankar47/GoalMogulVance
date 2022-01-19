@@ -2,7 +2,8 @@
 
 import axios from 'axios'
 import { Image } from 'react-native'
-import * as ImageManipulator from 'expo-image-manipulator'
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator'
+import ImageResizer from 'react-native-image-resizer'
 import _ from 'lodash'
 import TokenService from '../services/token/TokenService'
 
@@ -136,64 +137,60 @@ const ImageUtils = {
      * @param {object} capDimensions: { capHeight, capWidth }
      */
     resizeImage(file, width, height, capDimensions) {
-        console.log('file to resize is: ', file)
-        // const widthCap =
-        //     capDimensions && capDimensions.capWidth
-        //         ? capDimensions.capWidth
-        //         : 500
-        // const heightCap =
-        //     capDimensions && capDimensions.capHeight
-        //         ? capDimensions.capHeight
-        //         : 500
-
-        // const cropData = {
-        //     offset: { x: 0, y: 0 },
-        //     size: {
-        //         width,
-        //         height,
-        //     },
-        //     displaySize: {
-        //         width: widthCap * (width > height ? 1 : width / height),
-        //         height: heightCap * (height > width ? 1 : height / width),
-        //     },
-        //     resizeMode: 'cover',
-        // }
+        const widthCap =
+            capDimensions && capDimensions.capWidth
+                ? capDimensions.capWidth
+                : 500
+        const heightCap =
+            capDimensions && capDimensions.capHeight
+                ? capDimensions.capHeight
+                : 500
 
         // // get info for original image
-        // const fileType = 'jpeg'
-        // const actions = [
-        //     {
-        //         resize: {
-        //             width: widthCap * (width > height ? 1 : width / height),
-        //             height: heightCap * (height > width ? 1 : height / width),
-        //         },
-        //     },
-        // ]
+        const compressFormat = 'JPEG'
+        const maxWidth = widthCap * (width > height ? 1 : width / height)
+        const maxHeight = heightCap * (height > width ? 1 : height / width)
         // const saveOptions = {
         //     compress: 1, // no compress since we resize the image
-        //     format: ImageManipulator.SaveFormat.JPEG,
+        //     format: SaveFormat.JPEG,
         // }
 
-        // const promise = new Promise(async (resolve, reject) => {
-        //     try {
-        //         const editedImage = await ImageManipulator.manipulateAsync(
-        //             file,
-        //             actions,
-        //             saveOptions
-        //         )
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                const editedImage = await ImageResizer.createResizedImage(
+                    file,
+                    maxWidth,
+                    maxHeight,
+                    compressFormat,
+                    70
+                )
+                resolve({
+                    uri: editedImage.uri,
+                    name: `photo.jpeg`,
+                    type: `image/jpeg`,
+                })
 
-        //         resolve({
-        //             uri: editedImage.uri,
-        //             name: `photo.${fileType}`,
-        //             type: `image/${fileType}`,
-        //         })
-        //     } catch (err) {
-        //         console.log('edited err: ', err)
-        //         reject(err)
-        //     }
-        // })
+                //         ImageResizer.createResizedImage(
+                //             file,
+                //             maxWidth,
+                //             maxHeight,
+                //             'JPEG',
+                //             70
+                //         ).then((image) => {
+                //             resolve({
+                //                 uri: image.path,
+                //                 name: `photo.jpeg`,
+                //                 type: `image/jpeg`,
+                //             })
+                //         })
+            } catch (err) {
+                console.log('edited err: ', err)
+                reject(err)
+            }
+        })
+        return promise
 
-        return { uri: file, name: `photo.jpeg`, type: `image/jpeg` }
+        // return { uri: file, name: `photo.jpeg`, type: `image/jpeg` }
     },
 
     resizeMultipleImage(file, width, height, capDimensions) {
@@ -232,12 +229,12 @@ const ImageUtils = {
         ]
         const saveOptions = {
             compress: 1, // no compress since we resize the image
-            format: ImageManipulator.SaveFormat.JPEG,
+            format: SaveFormat.JPEG,
         }
 
         const promise = new Promise(async (resolve, reject) => {
             try {
-                const editedImage = await ImageManipulator.manipulateAsync(
+                const editedImage = await manipulateAsync(
                     file,
                     actions,
                     saveOptions
@@ -294,7 +291,7 @@ const ImageUtils = {
                     )
                 })
                 .then(({ signedRequest, file }) => {
-                    console.log('[ ImageUtils ]: Uploading image')
+                    console.log('[ ImageUtils ]: Uploading image', file)
                     return ImageUtils.uploadImage(file, signedRequest)
                 })
                 .then((res) => {
