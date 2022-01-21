@@ -82,7 +82,9 @@ class SplashScreen extends Component {
         }
 
         return (
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView
+                style={{ flex: 1, backgroundColor: color.GM_BLUE_DEEP }}
+            >
                 <View style={styles.containerStyle}>
                     {/* Main content including logo, artwork and slogan */}
                     <StatusBar
