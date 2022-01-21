@@ -22,21 +22,16 @@ import DelayedButton from '../../Common/Button/DelayedButton'
 class UserCard extends React.Component {
     /** Render user already on GoalMogul */
     renderAddButton(item, callback) {
-        const { invited, inviting } = item
-        if (inviting) {
-            // Spinner on the add button to indicate request is being sent
-            return (
-                <View
-                    style={[
-                        styles.buttonStyle.containerStyle,
-                        styles.inviteButtonContainerStyle,
-                    ]}
-                >
-                    <ActivityIndicator animating={inviting} size="small" />
-                </View>
-            )
-        }
-        if (invited) {
+        const {
+            maybeInvitationId,
+            maybeInvitationType,
+            inviting,
+            invited,
+        } = item
+        if (
+            (maybeInvitationId && maybeInvitationType === 'outgoing') ||
+            invited
+        ) {
             // user has already invited
             return (
                 <DelayedButton
@@ -55,6 +50,23 @@ class UserCard extends React.Component {
                         Added
                     </Text>
                 </DelayedButton>
+            )
+        }
+        if (inviting) {
+            // Spinner on the add button to indicate request is being sent
+            return (
+                <View
+                    style={[
+                        styles.buttonStyle.containerStyle,
+                        styles.inviteButtonContainerStyle,
+                    ]}
+                >
+                    <ActivityIndicator
+                        animating={inviting}
+                        size="small"
+                        color={color.GM_BLUE}
+                    />
+                </View>
             )
         }
         return (

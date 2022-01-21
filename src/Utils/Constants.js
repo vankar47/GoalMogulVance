@@ -184,11 +184,11 @@ export const PRIVACY_OPTIONS = [
         value: PRIVACY_EXCLUDEFRIENDS,
         materialCommunityIconName: 'account-multiple',
     },
-    {
-        text: 'Close Friends',
-        value: PRIVACY_EXCLUDECLOSEFRIENDS,
-        materialCommunityIconName: 'heart',
-    },
+    // {
+    //     text: 'Close Friends',
+    //     value: PRIVACY_EXCLUDECLOSEFRIENDS,
+    //     materialCommunityIconName: 'heart',
+    // },
     {
         text: 'Specific Friends',
         value: PRIVACY_SPECIFICFRIENDS,

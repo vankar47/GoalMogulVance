@@ -130,7 +130,7 @@ class PeopleSearchOverlay extends Component {
                     skipInstanceCheck={true}
                 >
                     <KeyboardAvoidingView
-                        behavior="padding"
+                        behavior={Platform.OS === 'ios' ? 'padding' : ''}
                         style={{ flex: 1 }}
                         enabled
                     >
