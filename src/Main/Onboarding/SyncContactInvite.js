@@ -166,8 +166,6 @@ class SyncContactInvite extends React.Component {
 
     render() {
         const { inviteOnly } = this.props
-
-        console.log('THIS IS PROPSSS', this.props)
         return (
             <View style={styles.containerStyle}>
                 <OnboardingHeader />

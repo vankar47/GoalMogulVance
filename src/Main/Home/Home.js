@@ -1888,7 +1888,7 @@ class Home extends Component {
             >
                 <StatusBar
                     animated={true}
-                    backgroundColor={color.GM_BLUE_DEEP}
+                    backgroundColor={color.GM_BLUE}
                     // barStyle={statusBarStyle}
                     // showHideTransition={statusBarTransition}
                 />
@@ -2063,6 +2063,7 @@ const HomeExplained = copilot({
     animated: true, // or false
     stepNumberComponent: () => <View />,
     tooltipComponent: CreateGoalTooltip,
+    verticalOffset: Platform.OS === 'android' ? 30 : 0,
     // svgMaskPath: svgMaskPath,
 })(AnalyticsWrapped)
 
