@@ -62,11 +62,12 @@ class MemberListCard extends Component {
             category,
         } = this.props
         const { _id } = item
+        console.log(category)
         let requestOptions
         if (category === 'Admin') {
             requestOptions = [
                 {
-                    text: 'Demote Admin',
+                    text: 'Demote Admin', //JoinRequester
                     onPress: () => {
                         onDemoteUser(_id)
                         this.closeOptionModal()
@@ -100,13 +101,13 @@ class MemberListCard extends Component {
             ]
         } else if (category === 'Invitee') {
             requestOptions = [
-                {
-                    text: 'Withdraw Invitation',
-                    onPress: () => {
-                        onRemoveUser(_id)
-                        this.closeOptionModal()
-                    },
-                },
+                // {
+                //     text: 'Withdraw Invitation',
+                //     onPress: () => {
+                //         onRemoveUser(_id)
+                //         this.closeOptionModal()
+                //     },
+                // },
                 {
                     text: 'Cancel',
                     onPress: () => this.closeOptionModal(),
@@ -114,13 +115,13 @@ class MemberListCard extends Component {
             ]
         } else {
             requestOptions = [
-                {
-                    text: 'Accept Request',
-                    onPress: () => {
-                        onAcceptUser(_id)
-                        this.closeOptionModal()
-                    },
-                },
+                // {
+                //     text: 'Accept Request',
+                //     onPress: () => {
+                //         onAcceptUser(_id)
+                //         this.closeOptionModal()
+                //     },
+                // },
                 {
                     text: 'Reject Request',
                     onPress: () => {
@@ -282,6 +283,24 @@ class MemberListCard extends Component {
         )
     }
 
+    renderAccButton = () => {
+        return (
+            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                {this.renderAcceptButton()}
+                <View style={{ flex: 1 }} />
+            </View>
+        )
+    }
+
+    renderwitButton = () => {
+        return (
+            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                {this.renderWithdrawButton()}
+                <View style={{ flex: 1 }} />
+            </View>
+        )
+    }
+
     handleRequestFriend = (userId) => {
         this.setState(
             {
@@ -309,6 +328,56 @@ class MemberListCard extends Component {
                 ]}
                 onPress={() => {}}
                 disabled
+            >
+                <Text
+                    style={[
+                        default_style.buttonText_1,
+                        { color: 'white', fontSize: 12 },
+                    ]}
+                >
+                    {text}
+                </Text>
+            </DelayedButton>
+        )
+    }
+
+    renderAcceptButton = () => {
+        const text = 'Accept Request'
+        const { onAcceptUser, item } = this.props
+        const { _id } = item
+        return (
+            <DelayedButton
+                style={[
+                    styles.buttonTextContainerStyle,
+                    { backgroundColor: color.GM_BLUE },
+                ]}
+                onPress={() => onAcceptUser(_id)}
+                activeOpacity={0.6}
+            >
+                <Text
+                    style={[
+                        default_style.buttonText_1,
+                        { color: 'white', fontSize: 12 },
+                    ]}
+                >
+                    {text}
+                </Text>
+            </DelayedButton>
+        )
+    }
+
+    renderWithdrawButton = () => {
+        const text = 'Withdraw Invite'
+        const { onRemoveUser, item } = this.props
+        const { _id } = item
+        return (
+            <DelayedButton
+                style={[
+                    styles.buttonTextContainerStyle,
+                    { backgroundColor: color.GM_BLUE },
+                ]}
+                onPress={() => onRemoveUser(_id)}
+                activeOpacity={0.6}
             >
                 <Text
                     style={[
@@ -407,7 +476,7 @@ class MemberListCard extends Component {
     }
 
     render() {
-        const { item, index } = this.props
+        const { item, index, category } = this.props
         if (!item) return null
 
         const { headline, _id } = item
@@ -427,10 +496,15 @@ class MemberListCard extends Component {
                         user={item}
                         style={{ marginLeft: 0, marginVertical: 4 }}
                     />
+                    {/* {this.renderButton(_id)} */}
                     {this.props.isFriend
                         ? null
                         : this.props.isSelf
                         ? null
+                        : category === 'JoinRequester'
+                        ? this.renderAccButton()
+                        : category === 'Invitee'
+                        ? this.renderwitButton()
                         : this.renderButton(_id)}
                     {/* <TouchableOpacity
                         style={{
