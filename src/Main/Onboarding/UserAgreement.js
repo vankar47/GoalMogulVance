@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { View, Dimensions } from 'react-native'
+import { View, Dimensions, ActivityIndicator } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { TERMS_OF_SERVICE_URL } from '../../Utils/Constants'
 import OnboardingHeader from './Common/OnboardingHeader'
@@ -15,7 +15,7 @@ class UserAgreement extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            loaded: false,
+            loaded: true,
         }
     }
 
@@ -37,6 +37,7 @@ class UserAgreement extends React.Component {
                     bounces={false}
                     scrollEnabled
                     showsHorizontalScrollIndicator={false}
+                    onLoad={() => this.setState({ loaded: false })}
                     onLoadEnd={(e) => {
                         if (!this.state.loaded) {
                             // Wait for WebView to be fully loaded and converted to transparent.
@@ -47,6 +48,13 @@ class UserAgreement extends React.Component {
                         }
                     }}
                 />
+                {this.state.loaded && (
+                    <ActivityIndicator
+                        size="large"
+                        color="#1cb1e4"
+                        style={{ position: 'absolute', top: 130, left: 170 }}
+                    />
+                )}
             </View>
         )
     }

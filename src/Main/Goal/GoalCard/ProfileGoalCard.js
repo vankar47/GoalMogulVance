@@ -6,7 +6,14 @@
  */
 
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    Dimensions,
+    ScrollView,
+} from 'react-native'
 import { connect } from 'react-redux'
 import timeago from 'timeago.js'
 import _ from 'lodash'
@@ -281,18 +288,34 @@ class ProfileGoalCard extends React.Component {
                                                 Privacy:
                                             </Text>
                                         </View>
-
+                                        {/* 
                                         <View
                                             style={{
                                                 flexDirection: 'row',
                                                 alignItems: 'center',
                                             }}
+                                        > */}
+                                        <ScrollView
+                                            horizontal
+                                            contentContainerStyle={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                paddingVertical: 4,
+                                                paddingTop: 8,
+                                            }}
+                                            showsHorizontalScrollIndicator={
+                                                false
+                                            }
                                         >
                                             {privacyOptions.map(
                                                 (options, index) => {
                                                     return (
                                                         <TouchableOpacity
-                                                            key={options}
+                                                            key={
+                                                                index +
+                                                                options.value
+                                                            }
                                                             onPress={() => {
                                                                 this.props.submitGoalPrivacy(
                                                                     goalId,
@@ -361,7 +384,7 @@ class ProfileGoalCard extends React.Component {
                                                     )
                                                 }
                                             )}
-                                        </View>
+                                        </ScrollView>
                                     </>
                                 }
                                 placement="bottom"
