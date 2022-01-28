@@ -128,6 +128,44 @@ class PeopleSearch extends Component {
         const { height } = Dimensions.get('window')
         let SortedObjs = _.sortBy(this.props.data, 'name')
 
+        if (
+            this.props.data.length === 0 &&
+            !this.props.searchContent &&
+            !this.props.loading
+        ) {
+            return (
+                <FlatList
+                    data={this.props.allUser}
+                    renderItem={this.renderItem}
+                    keyExtractor={(item, index) => 'key' + index}
+                    refreshing={this.props.peopleLoading}
+                    onEndReached={this.preHandleOnLoadMore}
+                    onEndReachedThreshold={0.5}
+                    keyboardShouldPersistTaps="always"
+                />
+            )
+        } else if (
+            this.props.data.length === 0 &&
+            this.props.searchContent &&
+            !this.props.loading
+        ) {
+            return <EmptyResult text={'No Results'} />
+        } else {
+            let SortedObjs = _.sortBy(this.props.data, 'name')
+            return (
+                <FlatList
+                    data={SortedObjs}
+                    renderItem={this.renderItem}
+                    keyExtractor={this._keyExtractor}
+                    onEndReached={this.handleOnLoadMore}
+                    onEndReachedThreshold={0.5}
+                    // onRefresh={this.handleRefresh}
+                    // refreshing={this.props.loading}
+                    keyboardShouldPersistTaps="always"
+                />
+            )
+        }
+
         return (
             <View style={{ flex: 1, height: height }}>
                 {this.props.data.length === 0 &&
@@ -152,12 +190,14 @@ class PeopleSearch extends Component {
 }
 
 const mapStateToProps = (state) => {
+    // console.log('====================================')
+    // console.log(state.account.allUser)
+    // console.log('====================================')
     const { people, searchContent } = state.search
     const { token } = state.user
 
     const { data, refreshing, loading } = people
     const { allUser, loading: peopleLoading } = state.account
-
     return {
         people,
         data,

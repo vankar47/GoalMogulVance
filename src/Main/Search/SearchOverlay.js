@@ -144,9 +144,7 @@ class SearchOverlay extends Component {
                 type="GeneralSearch"
             />
         ),
-        tribes: () => (
-            <TribeSearch type="GeneralSearch" shouldPreload={false} />
-        ),
+        tribes: () => <TribeSearch type="GeneralSearch" shouldPreload={true} />,
         chatRooms: () => <ChatSearch type="GeneralSearch" />,
     })
 
@@ -235,6 +233,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
     const { selectedTab, navigationState, searchContent } = state.search
+
     const { loading } = state.search[selectedTab]
     const { userId } = state.user
 

@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         alignSelf: 'center',
         justifyContent: 'space-between',
-        height: hp(69.16),
-        width: wp(91.46),
+        height: hp('75%'),
+        width: wp('90%'),
         borderRadius: wp(2),
     },
     modalCancelIconContainerStyle: {

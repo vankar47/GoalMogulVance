@@ -32,7 +32,7 @@ class ChatSearch extends Component {
         this.renderItem = this.renderItem.bind(this)
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.props.getAllAccounts()
     }
 

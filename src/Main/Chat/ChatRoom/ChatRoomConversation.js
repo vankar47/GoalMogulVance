@@ -978,9 +978,18 @@ class ChatRoomConversation extends React.Component {
                             }}
                         >
                             <Text>Attached Voice</Text>
-                            <TouchableOpacity
+                            <DelayedButton
+                                activeOpacity={0.6}
                                 onPress={onRemove}
-                                // style={{ justifyContent: 'flex-end' }}
+                                style={{
+                                    zIndex: 2,
+                                    height: 22,
+                                    width: 22,
+                                    backgroundColor: 'white',
+                                    borderRadius: 11,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
                             >
                                 <Icon
                                     name="cancel"
@@ -991,7 +1000,7 @@ class ChatRoomConversation extends React.Component {
                                         borderRadius: 11,
                                     }}
                                 />
-                            </TouchableOpacity>
+                            </DelayedButton>
                         </View>
                     ) : null}
 

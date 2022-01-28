@@ -1129,7 +1129,6 @@ class NewGoalView extends Component {
                 date={new Date()}
                 isVisible={this.props.startTime.picker}
                 mode="date"
-                display="inline"
                 onConfirm={(date) => {
                     if (validateTime(date, this.props.endTime.date)) {
                         this.props.change('startTime', { date, picker: false })
@@ -1154,36 +1153,35 @@ class NewGoalView extends Component {
                     })
                 }
             />
-        ) : null
-        // <Modal
-        //     animationType="fade"
-        //     transparent={false}
-        //     visible={this.props.startTime.picker}
-        // >
-        //     <ModalHeader
-        //         title="Select start time"
-        //         actionText="Done"
-        //         onAction={() =>
-        //             this.props.change('startTime', {
-        //                 date: this.props.startTime.date,
-        //                 picker: false,
-        //             })
-        //         }
-        //         onCancel={() =>
-        //             this.props.change('startTime', {
-        //                 date: this.props.startTime.date,
-        //                 picker: false,
-        //             })
-        //         }
-        //     />
-
-        // </Modal>
+        ) : (
+            <Modal
+                animationType="fade"
+                transparent={false}
+                visible={this.props.startTime.picker}
+            >
+                <ModalHeader
+                    title="Select start time"
+                    actionText="Done"
+                    onAction={() =>
+                        this.props.change('startTime', {
+                            date: this.props.startTime.date,
+                            picker: false,
+                        })
+                    }
+                    onCancel={() =>
+                        this.props.change('startTime', {
+                            date: this.props.startTime.date,
+                            picker: false,
+                        })
+                    }
+                />
+            </Modal>
+        )
 
         const endDatePicker = newPicker ? (
             <DateTimePickerModal
                 isVisible={this.props.endTime.picker}
                 date={new Date()}
-                display="inline"
                 onConfirm={(date) => {
                     if (validateTime(this.props.startTime.date, date)) {
                         this.props.change('endTime', { date, picker: false })
