@@ -60,7 +60,8 @@ export const submitGoal = (
     callback,
     goalId,
     { needOpenProfile, needRefreshProfile },
-    pageId // TODO: profile reducer redesign to change here
+    pageId, // TODO: profile reducer redesign to change here
+    isTribe
 ) => (dispatch, getState) => {
     const { token, user } = getState().user
     const { tab } = getState().navigation
@@ -82,7 +83,11 @@ export const submitGoal = (
     // If user is editing the goal, then call another endpoint
     if (isEdit) {
         let goalToUse = _.cloneDeep(goal)
-        goalToUse = _.set(goalToUse, 'shareToGoalFeed', false)
+        goalToUse = _.set(
+            goalToUse,
+            isTribe ? 'shareToTribeFeed' : 'shareToGoalFeed',
+            false
+        )
         if (goalToUse.privacy === PRIVACY_PRIVATE)
             return submitEditGoal(
                 goalToUse,
@@ -116,7 +121,11 @@ export const submitGoal = (
                 {
                     text: 'Share',
                     onPress: () => {
-                        goalToUse = _.set(goalToUse, 'shareToGoalFeed', true)
+                        goalToUse = _.set(
+                            goalToUse,
+                            isTribe ? 'shareToTribeFeed' : 'shareToGoalFeed',
+                            true
+                        )
                         return submitEditGoal(
                             goalToUse,
                             goalId,

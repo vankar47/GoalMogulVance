@@ -360,7 +360,8 @@ class CreateGoalModal extends React.Component {
                         this.props.openProfile === true,
                     needRefreshProfile: this.props.openProfile === false,
                 },
-                this.props.pageId
+                this.props.pageId,
+                this.props?.isTribe ? this.props.isTribe : false
             )
         }
     }
@@ -481,7 +482,8 @@ class CreateGoalModal extends React.Component {
                     this.props.openProfile === true,
                 needRefreshProfile: this.props.openProfile === false,
             },
-            this.props.pageId
+            this.props.pageId,
+            this.props?.isTribe ? this.props.isTribe : false
         )
     }
 
@@ -555,7 +557,8 @@ class CreateGoalModal extends React.Component {
                     this.props.openProfile === true,
                 needRefreshProfile: this.props.openProfile === false,
             },
-            this.props.pageId
+            this.props.pageId,
+            this.props?.isTribe ? this.props.isTribe : false
         )
     }
 

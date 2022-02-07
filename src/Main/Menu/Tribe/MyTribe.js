@@ -137,18 +137,19 @@ class MyTribe extends React.PureComponent {
 
                 showBorder: true,
             },
-            // {
-            //     name: 'Share a New Goal in Tribe',
-            //     icon: CREATE_GOAL,
-            //     onPress: () => {
-            //         this.setState({ tooltipVisible: false })
+            {
+                name: 'Share a New Goal in Tribe',
+                icon: CREATE_GOAL,
+                onPress: () => {
+                    this.setState({ tooltipVisible: false })
 
-            //         Actions.push('createGoalModal', {
-            //             pageId: this.props.pageId,
-            //         })
-            //     },
-            //     showBorder: true,
-            // },
+                    Actions.push('createGoalModal', {
+                        pageId: this.props.pageId,
+                        isTribe: true,
+                    })
+                },
+                showBorder: true,
+            },
             {
                 name: 'Share an Existing Goal ',
                 icon: SHARE_GOAL,
