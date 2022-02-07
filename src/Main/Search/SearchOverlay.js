@@ -62,11 +62,19 @@ class SearchOverlay extends Component {
     componentDidMount() {
         track(E.SEARCH_OPENED)
         this.props.getAllAccounts()
+
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                tabTransition: false,
+            })
+            this.search.focus()
+        }, 400)
     }
 
-    componentWillUnmount() {
-        // track(E.SEARCH_CLOSED)
-    }
+    // componentWillUnmount() {
+    // track(E.SEARCH_CLOSED)
+    // }
 
     // Search bar functions
     handleCancel = () => {
@@ -129,7 +137,7 @@ class SearchOverlay extends Component {
                 tabTransition: false,
             })
             this.search.focus()
-        }, 200)
+        }, 400)
     }
 
     _renderHeader = (props) => {
@@ -165,7 +173,7 @@ class SearchOverlay extends Component {
                         ref={(search) => (this.search = search)}
                         platform="ios"
                         round
-                        autoFocus
+                        // autoFocus
                         inputStyle={styles.searchInputStyle}
                         inputContainerStyle={styles.searchInputContainerStyle}
                         containerStyle={{
