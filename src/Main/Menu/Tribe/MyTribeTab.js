@@ -110,46 +110,50 @@ class MyTribeTab extends React.Component {
 
     renderEmptyTribepage() {
         return (
-            <View>
+            <View
+                style={{
+                    marginVertical: 20,
+                    flex: 1,
+                    justifyContent: 'center',
+                }}
+            >
                 <View
                     style={{
-                        flex: 1,
-                        alignItems: 'center',
-                        paddingTop: 160,
-                        paddingLeft: 100,
-                        paddingRight: 100,
+                        alignSelf: 'center',
+                        width: '90%',
+                        height: 190,
+                        backgroundColor: 'white',
+                        elevation: 2,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: 0.3,
+                        shadowRadius: 6,
                     }}
                 >
-                    <View style={[styles.emptyTribeTextContainerStyle]}>
-                        <Text
-                            style={{
-                                ...default_style.goalTitleText_1,
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            Check out some Tribes!
+                    <Text
+                        style={{
+                            ...default_style.goalTitleText_1,
+                            fontWeight: 'bold',
+                            textAlign: 'center',
+                            fontSize: 20,
+                        }}
+                    >
+                        Check out some Tribes!
+                    </Text>
+                    <Text style={{ textAlign: 'center', marginHorizontal: 10 }}>
+                        <Text style={[default_style.titleText_1]}>
+                            <Text>Find and follow experts</Text> talking about
+                            your interest!
                         </Text>
-                    </View>
-                    <View style={[styles.emptyTribeTextContainerStyle]}>
-                        <Text style={default_style.titleText_1}>
-                            Find and follow experts
-                        </Text>
-                        <Text style={{ ...default_style.subTitleText_1 }}>
-                            {' '}
-                            talking about your interest!
-                        </Text>
-                    </View>
-                    <View style={[styles.emptyTribeTextContainerStyle]}>
+                        {'\n'}
                         <Text style={{ ...default_style.titleText_1 }}>
-                            Build an audience
-                        </Text>
-                        <Text style={{ ...default_style.subTitleText_1 }}>
-                            {' '}
+                            <Text style={{ fontWeight: '700' }}>
+                                Build an audience{' '}
+                            </Text>
                             by sharing goals and making updates!
                         </Text>
-                    </View>
-                </View>
-                <View style={{ paddingHorizontal: 10 }}>
+                    </Text>
+                    {/* <View style={{ paddingHorizontal: 10 }}> */}
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={[styles.emptyTribeButtonStyle]}
@@ -165,9 +169,10 @@ class MyTribeTab extends React.Component {
                                 { color: color.GM_CARD_BACKGROUND },
                             ]}
                         >
-                            Discover Tribes
+                            Discover Other Tribes
                         </Text>
                     </TouchableOpacity>
+                    {/* </View> */}
                 </View>
             </View>
         )
@@ -189,7 +194,6 @@ class MyTribeTab extends React.Component {
             }
             return this.renderEmptyTribepage()
         }
-
         let tribeAction = null
         if (this.props.requestedTribes.some((tribe) => tribe == item)) {
             tribeAction = 'requested'
@@ -267,25 +271,29 @@ class MyTribeTab extends React.Component {
         switch (route.key) {
             case 'MyTribes':
                 return (
-                    <FlatList
-                        data={adminData
-                            .concat([OTHER_TRIES])
-                            .concat(memberData)}
-                        renderItem={this.renderItem}
-                        numColumns={1}
-                        keyExtractor={this._keyExtractor}
-                        refreshing={
-                            this.props.admin.refreshing ||
-                            this.props.member.refreshing
-                        }
-                        onRefresh={() => {
-                            this.props.refreshTribes(TRIBE_TYPE.admin)
-                        }}
-                        onEndReached={() => {
-                            this.props.loadMoreTribes(TRIBE_TYPE.member)
-                        }}
-                        onEndThreshold={0}
-                    />
+                    <>
+                        <FlatList
+                            // style={{ flex: 1, flexDirection: 'column' }}
+                            data={adminData
+                                .concat([OTHER_TRIES])
+                                .concat(memberData)}
+                            renderItem={this.renderItem}
+                            numColumns={1}
+                            keyExtractor={this._keyExtractor}
+                            refreshing={
+                                this.props.admin.refreshing ||
+                                this.props.member.refreshing
+                            }
+                            onRefresh={() => {
+                                this.props.refreshTribes(TRIBE_TYPE.admin)
+                            }}
+                            onEndReached={() => {
+                                this.props.loadMoreTribes(TRIBE_TYPE.member)
+                            }}
+                            onEndThreshold={0}
+                        />
+                        {/* {this.renderEmptyTribepage()} */}
+                    </>
                 )
 
             case 'JoinRequester':
@@ -473,13 +481,18 @@ const styles = {
     },
     emptyTribeButtonStyle: {
         backgroundColor: color.GM_BLUE,
-        borderRadius: 3,
-        flex: 1,
+        borderRadius: 5,
+        marginVertical: 10,
+        // flex: 1,
+        height: 45,
+        justifyContent: 'center',
+        marginHorizontal: 15,
     },
     buttonText: {
         ...default_style.buttonText_1,
         textAlign: 'center',
-        margin: 7,
+        // margin: 7,
+        fontSize: 18,
     },
     emptyTribeTextContainerStyle: {
         ...default_style.titleText_1,
