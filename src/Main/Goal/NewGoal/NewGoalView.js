@@ -1912,7 +1912,7 @@ const styles = {
             height: height * 0.45,
             width: width * 0.9,
             // width: '100%',
-            bottom: 25,
+            bottom: 60,
             // left: 50,
         },
         optionWrapper: {
@@ -1984,7 +1984,7 @@ const MenuFactory = (
         <Menu
             onSelect={(value) => callback(value)}
             rendererProps={{
-                placement: 'auto',
+                placement: 'bottom',
                 anchorStyle: styles.anchorStyle,
             }}
             renderer={Popover}

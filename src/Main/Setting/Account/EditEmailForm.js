@@ -80,7 +80,7 @@ class EditEmailForm extends Component {
         const { handleSubmit, error } = this.props
 
         return (
-            <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+            <KeyboardAvoidingView behavior="padding">
                 <SearchBarHeader
                     backButton
                     rightIcon="empty"

@@ -164,7 +164,6 @@ class ClarifyModal extends React.Component {
 
     render() {
         const { name, goalDetail, goalId, focusRef, pageId } = this.props
-
         return (
             <>
                 <Modal
@@ -215,12 +214,16 @@ class ClarifyModal extends React.Component {
                             />
                             <Text style={styles.title}>
                                 {`Ask ${
-                                    name && name.substr(0, name.indexOf(' '))
+                                    name && name.includes(' ')
+                                        ? name.substr(0, name.indexOf(' '))
+                                        : name
                                 } to clarify his goal:`}
                             </Text>
                             <Text style={styles.text}>
                                 {`${
-                                    name && name.substr(0, name.indexOf(' '))
+                                    name && name.includes(' ')
+                                        ? name.substr(0, name.indexOf(' '))
+                                        : name
                                 }, are you able to...`}
                             </Text>
 

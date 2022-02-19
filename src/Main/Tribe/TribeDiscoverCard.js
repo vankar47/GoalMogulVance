@@ -259,7 +259,7 @@ class TribeDiscoverCard extends React.PureComponent {
                             // letterSpacing: -0.216066,
                             fontFamily: 'SFProDisplay-Regular',
                         }}
-                        // numberOfLines={1}
+                        numberOfLines={4}
                         ellipsizeMode="tail"
                     >
                         {content}

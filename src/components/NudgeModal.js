@@ -63,13 +63,17 @@ class NudgeModal extends Component {
                         this.props.onClose()
                     }}
                 >
-                    <View style={{ marginBottom: 16 }}>
+                    <View
+                        style={{
+                            marginBottom: 14.5,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
                         <Text
                             style={{
                                 position: 'absolute',
                                 zIndex: 1,
-                                padding: 5,
-
                                 alignSelf: 'center',
                                 color: 'white',
                                 fontFamily: 'SFProDisplay-Semibold',
@@ -78,7 +82,7 @@ class NudgeModal extends Component {
                             Yes
                         </Text>
                         <LottieView
-                            style={{ height: 35 }}
+                            style={{ height: 34.5 }}
                             source={YES_LOTTIE}
                             autoPlay
                             loop

@@ -122,11 +122,11 @@ class Menu extends React.PureComponent {
 
         const pageID = 391422631718856
         const scheme = Platform.select({
-            ios: 'fb://profile/',
+            ios: 'https://www.facebook.com/goalmogul/',
             android: 'fb://page/',
         })
 
-        const url = `${scheme}${pageID}`
+        const url = `${Platform.OS === 'ios' ? scheme : scheme + pageID}`
 
         return (
             <View style={{ flex: 1 }}>

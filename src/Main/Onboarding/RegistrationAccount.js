@@ -481,12 +481,12 @@ class RegistrationAccount extends React.Component {
                         // this.scrollView.props.scrollToFocusedInput()
                         Keyboard.dismiss()
                     }}
-                    caption={
-                        !this.state.emailStatus ||
-                        this.state.emailStatus == FIELD_REQUIREMENTS.done
-                            ? `We'll send a link to set your password here`
-                            : this.state.emailStatus
-                    }
+                    // caption={
+                    //     !this.state.emailStatus ||
+                    //     this.state.emailStatus == FIELD_REQUIREMENTS.done
+                    //         ? `We'll send a link to set your password here`
+                    //         : this.state.emailStatus
+                    // }
                     status={
                         this.state.emailStatus &&
                         this.state.emailStatus !== FIELD_REQUIREMENTS.done

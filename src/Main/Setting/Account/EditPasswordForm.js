@@ -137,10 +137,7 @@ class EditPasswordForm extends Component {
                     rightIcon="empty"
                     title="Password"
                 />
-                <KeyboardAvoidingView
-                    behavior="padding"
-                    style={{ flex: 1, backgroundColor: '#ffffff' }}
-                >
+                <KeyboardAvoidingView behavior="padding">
                     <ScrollView
                         style={styles.scroll}
                         keyboardShouldPersistTaps="handled"
