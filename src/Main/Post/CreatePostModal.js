@@ -343,12 +343,12 @@ class CreatePostModal extends Component {
         const callback = (result) => {
             // if (result.type === 'image') this.setState({ isImage: true })
             this.bottomSheetRef.open()
-            this.props.change('mediaRef', result.uri)
+            this.props.change('mediaRef', result?.uri)
             this.setState({ clickedButton: false })
         }
         setTimeout(() => {
             this.props.openCamera(callback)
-        }, 500)
+        }, 1000)
     }
 
     handleOpenCameraRoll = () => {
@@ -361,12 +361,12 @@ class CreatePostModal extends Component {
 
             this.bottomSheetRef.open()
 
-            this.props.change('mediaRef', result.uri)
+            this.props.change('mediaRef', result?.uri)
             this.setState({ clickedButton: false })
         }
         setTimeout(() => {
             this.props.openCameraRoll(callback, { disableEditing: true })
-        }, 500)
+        }, 1000)
     }
 
     loadFromDraft = (selectedDraft, index) => {
