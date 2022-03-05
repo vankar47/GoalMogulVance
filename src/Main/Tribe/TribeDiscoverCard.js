@@ -27,11 +27,23 @@ class TribeDiscoverCard extends React.PureComponent {
         requested: false,
         joined: false,
         selected: false,
+        memberState: '',
     }
 
     componentDidMount() {
         const pageId = this.props.refreshProfileData(this.props.userId)
         pageAb = pageId
+        this.getMembers()
+    }
+
+    getMembers = () => {
+        const { item, userId } = this.props
+        const { members } = item
+        let memberState
+        members.filter((m) => {
+            if (m.memberRef === userId) memberState = m.category
+        })
+        this.setState({ memberState })
     }
 
     renderTitle(item) {
@@ -56,54 +68,62 @@ class TribeDiscoverCard extends React.PureComponent {
     }
 
     renderButtonText = () => {
+        const buttonState = this.state.memberState
         if (this.props.isSeekTribe) {
             if (this.state.selected) {
                 return 'Posted'
             }
             return 'Select'
         } else {
-            if (this.state.requested) {
+            if (buttonState === 'JoinRequester') {
                 return 'Requested'
-            } else if (this.state.joined) {
+            } else if (buttonState === 'Admin' || buttonState === 'Member') {
                 return 'Joined'
-            } else {
+            } else if (buttonState === undefined) {
                 return 'Join'
-            }
+            } else null
         }
     }
 
     handleJoinButton = (item) => {
         const { onPress } = this.props
-        const { requested, joined } = this.state
+        const { memberState } = this.state
 
-        if (item.isAutoAcceptEnabled && !this.state.joined) {
-            this.setState({ joined: true })
+        if (memberState === undefined) {
+            this.setState({ memberState: 'JoinRequester' })
             this.props.requestJoinTribe(
                 item._id,
                 true,
                 pageAb,
                 item.isAutoAcceptEnabled
             )
-        } else if (requested || joined) {
+        } else if (
+            memberState === 'JoinRequester' ||
+            memberState === 'Admin' ||
+            memberState === 'Member'
+        ) {
             onPress(item)
-        } else {
-            this.setState({ requested: true })
-            this.props.requestJoinTribe(
-                item._id,
-                true,
-                pageAb,
-                item.isAutoAcceptEnabled
-            )
         }
+        // else {
+        //     this.setState({ requested: true })
+        //     this.props.requestJoinTribe(
+        //         item._id,
+        //         true,
+        //         pageAb,
+        //         item.isAutoAcceptEnabled
+        //     )
+        // }
     }
 
     renderButton(item) {
-        const { requested } = this.state
+        const { memberState } = this.state
         return (
             <View style={styles.iconContainerStyle}>
                 <DelayedButton
-                    disabled={this.state.selected}
-                    activeOpacity={0.6}
+                    // disabled={
+                    //     this.state.memberState == 'JoinRequester' ? true : false
+                    // }
+                    activeOpacity={0.8}
                     onPress={() => {
                         if (this.props.isSeekTribe) {
                             this.setState({ selected: true })
@@ -113,8 +133,11 @@ class TribeDiscoverCard extends React.PureComponent {
                     }}
                     style={{
                         height: 31,
-                        width: requested ? 100 : 65,
-                        backgroundColor: requested ? '#BDBDBD' : color.GM_BLUE,
+                        width: memberState === 'JoinRequester' ? 110 : 65,
+                        backgroundColor:
+                            memberState === 'JoinRequester'
+                                ? '#BDBDBD'
+                                : color.GM_BLUE,
                         borderRadius: 3,
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -275,8 +298,6 @@ class TribeDiscoverCard extends React.PureComponent {
         const containerStyle = selected
             ? styles.tribeCardSelectedContainerStyle
             : styles.tribeCardContainerStyle
-
-        console.log('THIS IS TRIBE TO DISCOVER', item)
 
         return (
             <DelayedButton

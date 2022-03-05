@@ -105,6 +105,7 @@ class ActivityBody extends React.Component {
                 }}
             >
                 <View
+                    key={Math.random() * new Date()}
                     style={{
                         zIndex: 2,
                         position: 'absolute',
@@ -264,6 +265,7 @@ class ActivityBody extends React.Component {
             item = postRef.postRef
             return (
                 <View
+                    key={Math.randon() + goalRef._id}
                     style={{
                         borderWidth: 1,
                         borderColor: '#F2F2F2',
@@ -282,6 +284,7 @@ class ActivityBody extends React.Component {
         if (postType === 'ShareGoal') {
             return (
                 <View
+                    key={Math.random() * Date()}
                     style={{
                         borderWidth: 1,
                         borderColor: '#F2F2F2',
@@ -294,7 +297,10 @@ class ActivityBody extends React.Component {
         }
 
         return (
-            <View style={{ marginTop: 8 }}>
+            <View
+                style={{ marginTop: 8 }}
+                key={Math.random().toString(36).substr(2, 9)}
+            >
                 <RefPreview item={item} postType={postType} goalRef={goalRef} />
             </View>
         )

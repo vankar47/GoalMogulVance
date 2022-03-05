@@ -249,7 +249,7 @@ class AttachGoal extends Component {
                         data={data}
                         renderItem={this.renderItem}
                         keyExtractor={(item) => item._id.toString()}
-                        listKey={Math.random().toString(36).substr(2, 9)}
+                        listKey={Math.random().toString(36) * new Date()}
                         refreshing={this.props.refreshing || false}
                         onRefresh={this.props.refreshMyUserGoals}
                         onEndReached={this.props.loadMoreMyUserGoals}

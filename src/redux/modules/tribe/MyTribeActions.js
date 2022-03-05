@@ -932,7 +932,7 @@ export const requestJoinTribe = (
         if (join) {
             Alert.alert('Join request failed', 'Please try again later')
         } else {
-            Alert.alert('uest failed', 'Please try again later')
+            Alert.alert('Request failed', 'Please try again later')
         }
 
         console.log(
@@ -971,6 +971,7 @@ export const requestJoinTribe = (
 
     API.post(`${BASE_ROUTE}/join-request`, { tribeId }, token)
         .then((res) => {
+            console.log('join tribe request=====>', res)
             if (!res.message) {
                 return onSuccess()
             }

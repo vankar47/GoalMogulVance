@@ -210,7 +210,6 @@ class TribeDiscover extends React.Component {
 
     render() {
         const tribesToRender = this.getTribesToRender()
-        console.log('THIS IS TRIBE TO RENDER', tribesToRender)
 
         return (
             <View
